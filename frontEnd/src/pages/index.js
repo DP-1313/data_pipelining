@@ -72,7 +72,7 @@ const Home = () => {
       <video
         className="background"
         preload="auto"
-        autoplay="true"
+        autoPlay={true}
         loop="loop"
         muted="muted"
         volumn={0}

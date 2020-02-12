@@ -1,4 +1,3 @@
-import React from "react";
 import { Menu, Row, Col, Layout } from "antd";
 import styled from "styled-components";
 const { Header, Content } = Layout;
@@ -23,12 +22,7 @@ const AppLayout = ({ children }) => {
       <Header className="header">
         <Row>
           <Col push={1} xs={24} md={18}>
-            <Menu
-              mode="horizontal"
-              theme="dark"
-              className="category-menu"
-              selectable={false}
-            >
+            <Menu mode="horizontal" theme="dark" className="category-menu">
               <Menu.Item> Home </Menu.Item>
               <Menu.Item> Technology </Menu.Item>
               <Menu.Item> RequestDemo </Menu.Item>
