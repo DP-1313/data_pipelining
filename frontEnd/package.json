@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/DP-1313/data_pipelining#readme",
   "dependencies": {
+    "antd": "^3.26.9",
     "next": "^9.2.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0"
