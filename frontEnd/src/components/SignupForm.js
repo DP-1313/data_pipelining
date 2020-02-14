@@ -1,6 +1,9 @@
 import { useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Form, Input, Button } from "antd";
 import styled from "styled-components";
+
+import { signupRequest } from "../reducers/user";
 
 const StyledSignupForm = styled.div`
   input.ant-input {
@@ -34,6 +37,8 @@ const SignupForm = ({ onCancelModal }) => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [nickname, setNickname] = useState("");
+  const { isSigningUp } = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const onChangeValue = useCallback(
     setState => e => {
@@ -45,7 +50,7 @@ const SignupForm = ({ onCancelModal }) => {
     e => {
       setPasswordCheck(e.target.value);
       setPasswordError(false);
-      if (password !== e.target.value) setPasswordError(true);
+      if (password !== e.target.value) return setPasswordError(true);
     },
     [password]
   );
@@ -54,8 +59,7 @@ const SignupForm = ({ onCancelModal }) => {
     e => {
       e.preventDefault();
       if (password !== passwordCheck) return;
-      console.log(email, password, nickname);
-      onCancelModal();
+      dispatch(signupRequest(email, password, nickname, onCancelModal));
     },
     [email, password, passwordCheck, nickname]
   );
@@ -95,7 +99,7 @@ const SignupForm = ({ onCancelModal }) => {
             Password is not equal to check value{" "}
           </div>
         )}
-        <Button htmlType="submit" ghost>
+        <Button htmlType="submit" loading={isSigningUp} ghost>
           {" "}
           Submit{" "}
         </Button>
