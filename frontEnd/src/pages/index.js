@@ -74,8 +74,7 @@ const Home = () => {
         preload="auto"
         autoPlay={true}
         loop="loop"
-        muted="muted"
-        volumn={0}
+        muted={true}
       >
         <source src="/videos/background.mp4" type="video/mp4" />
       </video>
