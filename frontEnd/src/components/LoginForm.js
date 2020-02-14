@@ -21,6 +21,10 @@ const StyledLoginForm = styled.div`
       margin: 0.8rem 0;
     }
 
+    .error-reason {
+      color: red;
+    }
+
     button[type="submit"] {
       transform: scale(1.3);
     }
@@ -29,7 +33,7 @@ const StyledLoginForm = styled.div`
 const LoginForm = ({ onCancelModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isLoggingIn } = useSelector(state => state.user);
+  const { isLoggingIn, loginErrorReason } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const onChangeValue = useCallback(
@@ -63,6 +67,9 @@ const LoginForm = ({ onCancelModal }) => {
           onChange={onChangeValue(setPassword)}
           placeholder="Password"
         />
+        {loginErrorReason && (
+          <div className="error-reason"> {loginErrorReason} </div>
+        )}
         <Button htmlType="submit" ghost loading={isLoggingIn}>
           {" "}
           Submit{" "}

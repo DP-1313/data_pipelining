@@ -16,7 +16,11 @@ const dummyUserInfo = {
 
 const loginAPI = loginData => {
   // return axios.post("/user/login", loginData, { withCredentials: true});
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = loginData;
+    if (email !== "dlatns0201@gmail.com")
+      reject(new Error("존재하지 않는 아이디입니다."));
+    if (password !== "1234") reject(new Error("비밀번호가 틀립니다."));
     resolve({ data: dummyUserInfo });
   });
 };
@@ -33,7 +37,7 @@ const login = function*(action) {
     yield call(action.modalCancelEvent);
   } catch (e) {
     console.error(e);
-    yield put(loginFailure(error));
+    yield put(loginFailure(e.message));
   }
 };
 const signup = function*(action) {
