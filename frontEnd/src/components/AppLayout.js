@@ -20,8 +20,9 @@ const StyledLayout = styled(Layout)`
         background: transparent;
       }
     }
-    .category-menu {
+    .menu {
       line-height: 64px;
+      font-size: 1.2rem;
     }
   }
 `;
@@ -69,14 +70,14 @@ const AppLayout = ({ children }) => {
       <Header className="header">
         <Row>
           <Col push={1} xs={24} md={18}>
-            <Menu mode="horizontal" theme="dark" className="category-menu">
+            <Menu mode="horizontal" theme="dark" className="menu">
               <Menu.Item> Home </Menu.Item>
               <Menu.Item> Technology </Menu.Item>
               <Menu.Item> RequestDemo </Menu.Item>
             </Menu>
           </Col>
           <Col push={3} xs={24} md={3}>
-            <Menu mode="horizontal" theme="dark" className="category-menu">
+            <Menu mode="horizontal" theme="dark" className="menu">
               <Menu.Item onClick={onClickLogin}> Login </Menu.Item>
               <Menu.Item onClick={onClickSignup}> Signup </Menu.Item>
             </Menu>
