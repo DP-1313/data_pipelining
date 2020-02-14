@@ -89,8 +89,8 @@ const AppLayout = ({ children }) => {
         onCancel={onCancelModal}
         footer={null}
       >
-        {modalType === "Login" && <LoginForm />}
-        {modalType === "Signup" && <SignupForm />}
+        {modalType === "Login" && <LoginForm onCancelModal={onCancelModal} />}
+        {modalType === "Signup" && <SignupForm onCancelModal={onCancelModal} />}
       </StyledModal>
       <Content>{children}</Content>
     </StyledLayout>
