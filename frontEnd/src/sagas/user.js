@@ -1,5 +1,5 @@
 import axios from "axios";
-import { all, put, takeLatest, fork, call } from "redux-saga/effects";
+import { all, put, takeLatest, fork, call, delay } from "redux-saga/effects";
 import { loginSuccess, loginFailure, LOGIN_REQUEST } from "../reducers/user";
 
 const dummyUserInfo = {
@@ -17,7 +17,9 @@ const loginAPI = loginData => {
 const login = function*(action) {
   try {
     const result = yield call(loginAPI, action.payload);
+    yield delay(2000);
     yield put(loginSuccess(result.data));
+    yield call(action.modalCancelEvent);
   } catch (e) {
     console.error(e);
     yield put(loginFailure(error));

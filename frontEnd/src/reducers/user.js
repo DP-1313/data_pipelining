@@ -8,9 +8,10 @@ export const LOGIN_REQUEST = "user/LOGIN_REQUEST";
 const LOGIN_SUCCESS = "user/LOGIN_SUCCESS";
 const LOGIN_FAILURE = "user/LOGIN_FAILURE";
 
-export const loginRequest = (email, password) => ({
+export const loginRequest = (email, password, modalCancelEvent) => ({
   type: LOGIN_REQUEST,
-  payload: { email, password }
+  payload: { email, password },
+  modalCancelEvent
 });
 export const loginSuccess = userInfo => {
   return {
