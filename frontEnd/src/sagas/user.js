@@ -26,7 +26,12 @@ const loginAPI = loginData => {
 };
 const signupAPI = signupData => {
   // return axios.post("/user", signupData, {withCredentials: true});
-  return new Promise(resolve => resolve());
+  return new Promise((resolve, reject) => {
+    const { email } = signupData;
+    if (email === "dlatns0201@gmail.com")
+      reject(new Error("존재하는 이메일입니다."));
+    resolve();
+  });
 };
 
 const login = function*(action) {
@@ -36,7 +41,6 @@ const login = function*(action) {
     yield put(loginSuccess(result.data));
     yield call(action.modalCancelEvent);
   } catch (e) {
-    console.error(e);
     yield put(loginFailure(e.message));
   }
 };
@@ -47,8 +51,7 @@ const signup = function*(action) {
     yield put(signupSuccess());
     yield call(action.modalCancelEvent);
   } catch (e) {
-    console.error(e);
-    yield put(signupFailure(e));
+    yield put(signupFailure(e.message));
   }
 };
 

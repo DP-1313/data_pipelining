@@ -21,7 +21,8 @@ const StyledSignupForm = styled.div`
       margin: 0.8rem 0;
     }
 
-    .password-error {
+    .password-error,
+    .error-reason {
       color: red;
     }
 
@@ -37,7 +38,7 @@ const SignupForm = ({ onCancelModal }) => {
   const [passwordCheck, setPasswordCheck] = useState("");
   const [passwordError, setPasswordError] = useState(false);
   const [nickname, setNickname] = useState("");
-  const { isSigningUp } = useSelector(state => state.user);
+  const { isSigningUp, signupErrorReason } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const onChangeValue = useCallback(
@@ -98,6 +99,9 @@ const SignupForm = ({ onCancelModal }) => {
             {" "}
             Password is not equal to check value{" "}
           </div>
+        )}
+        {signupErrorReason && (
+          <div className="error-reason">{signupErrorReason}</div>
         )}
         <Button htmlType="submit" loading={isSigningUp} ghost>
           {" "}
