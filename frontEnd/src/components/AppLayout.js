@@ -1,5 +1,10 @@
-import { Menu, Row, Col, Layout } from "antd";
+import { useState, useCallback } from "react";
+import { Menu, Row, Col, Layout, Modal, Button } from "antd";
 import styled from "styled-components";
+
+import LoginForm from "./LoginForm";
+import SignupForm from "./SignupForm";
+
 const { Header, Content } = Layout;
 
 const StyledLayout = styled(Layout)`
@@ -18,6 +23,22 @@ const StyledLayout = styled(Layout)`
 `;
 
 const AppLayout = ({ children }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalType, setModalType] = useState("");
+
+  const onClickLogin = useCallback(() => {
+    setModalType("Login");
+    setModalVisible(true);
+  }, []);
+  const onClickSignup = useCallback(() => {
+    setModalType("Signup");
+    setModalVisible(true);
+  }, []);
+  const onCancelModal = useCallback(() => {
+    setModalVisible(false);
+    setModalType("");
+  }, []);
+
   return (
     <StyledLayout>
       <Header className="header">
@@ -31,12 +52,21 @@ const AppLayout = ({ children }) => {
           </Col>
           <Col push={3} xs={24} md={3}>
             <Menu mode="horizontal" theme="dark" className="category-menu">
-              <Menu.Item> Login </Menu.Item>
-              <Menu.Item> Signup </Menu.Item>
+              <Menu.Item onClick={onClickLogin}> Login </Menu.Item>
+              <Menu.Item onClick={onClickSignup}> Signup </Menu.Item>
             </Menu>
           </Col>
         </Row>
       </Header>
+      <Modal
+        title={modalType}
+        visible={modalVisible}
+        onCancel={onCancelModal}
+        footer={[<Button>제출하기</Button>]}
+      >
+        {modalType === "Login" && <LoginForm />}
+        {modalType === "Signup" && <SignupForm />}
+      </Modal>
       <Content>{children}</Content>
     </StyledLayout>
   );
