@@ -15,6 +15,10 @@ const StyledLayout = styled(Layout)`
 
     .ant-row {
       height: 100%;
+
+      .ant-menu-item-selected {
+        background: transparent;
+      }
     }
     .category-menu {
       line-height: 64px;
