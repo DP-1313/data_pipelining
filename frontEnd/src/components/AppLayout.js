@@ -6,6 +6,7 @@ const StyledLayout = styled(Layout)`
   .header {
     position: fixed;
     width: 100%;
+    z-index: 1;
 
     .ant-row {
       height: 100%;
