@@ -12,7 +12,12 @@ export const loginRequest = (email, password) => ({
   type: LOGIN_REQUEST,
   payload: { email, password }
 });
-export const loginSuccess = () => ({ type: LOGIN_SUCCESS });
+export const loginSuccess = userInfo => {
+  return {
+    type: LOGIN_SUCCESS,
+    payload: userInfo
+  };
+};
 export const loginFailure = error => ({ type: LOGIN_FAILURE, error });
 
 export default (state = initialState, action) => {

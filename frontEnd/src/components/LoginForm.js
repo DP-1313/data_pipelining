@@ -1,6 +1,9 @@
 import { useState, useCallback } from "react";
+import { useDispatch } from "react-redux";
 import { Form, Input, Button } from "antd";
 import styled from "styled-components";
+
+import { loginRequest } from "../reducers/user";
 
 const StyledLoginForm = styled.div`
   input.ant-input {
@@ -26,6 +29,7 @@ const StyledLoginForm = styled.div`
 const LoginForm = ({ onCancelModal }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
   const onChangeValue = useCallback(
     setState => e => {
@@ -36,7 +40,7 @@ const LoginForm = ({ onCancelModal }) => {
   const onSubmitForm = useCallback(
     e => {
       e.preventDefault();
-      console.log(email, password);
+      dispatch(loginRequest(email, password));
       onCancelModal();
     },
     [email, password]
