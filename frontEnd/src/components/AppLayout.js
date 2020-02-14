@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
-import { Menu, Row, Col, Layout, Modal, Button } from "antd";
+import { Menu, Row, Col, Layout, Modal } from "antd";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import LoginForm from "./LoginForm";
@@ -22,7 +23,7 @@ const StyledLayout = styled(Layout)`
     }
     .menu {
       line-height: 64px;
-      font-size: 1.2rem;
+      font-size: 1.13rem;
     }
   }
 `;
@@ -51,6 +52,7 @@ const StyledModal = styled(Modal)`
 const AppLayout = ({ children }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
+  const { userInfo } = useSelector(state => state.user);
 
   const onClickLogin = useCallback(() => {
     setModalType("Login");
@@ -76,10 +78,22 @@ const AppLayout = ({ children }) => {
               <Menu.Item> RequestDemo </Menu.Item>
             </Menu>
           </Col>
-          <Col push={3} xs={24} md={3}>
+          <Col push={3} xs={24} md={6}>
             <Menu mode="horizontal" theme="dark" className="menu">
-              <Menu.Item onClick={onClickLogin}> Login </Menu.Item>
-              <Menu.Item onClick={onClickSignup}> Signup </Menu.Item>
+              {userInfo ? (
+                <Menu.Item> Welcome {userInfo.nickname} </Menu.Item>
+              ) : (
+                [
+                  <Menu.Item key="login" onClick={onClickLogin}>
+                    {" "}
+                    Login{" "}
+                  </Menu.Item>,
+                  <Menu.Item key="signup" onClick={onClickSignup}>
+                    {" "}
+                    Signup{" "}
+                  </Menu.Item>
+                ]
+              )}
             </Menu>
           </Col>
         </Row>
