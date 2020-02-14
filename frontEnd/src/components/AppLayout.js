@@ -50,20 +50,16 @@ const StyledModal = styled(Modal)`
 `;
 
 const AppLayout = ({ children }) => {
-  const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
   const { userInfo } = useSelector(state => state.user);
 
-  const onClickLogin = useCallback(() => {
-    setModalType("Login");
-    setModalVisible(true);
-  }, []);
-  const onClickSignup = useCallback(() => {
-    setModalType("Signup");
-    setModalVisible(true);
-  }, []);
+  const onClickSign = useCallback(
+    type => () => {
+      setModalType(type);
+    },
+    []
+  );
   const onCancelModal = useCallback(() => {
-    setModalVisible(false);
     setModalType("");
   }, []);
 
@@ -84,11 +80,11 @@ const AppLayout = ({ children }) => {
                 <Menu.Item> Welcome {userInfo.nickname} </Menu.Item>
               ) : (
                 [
-                  <Menu.Item key="login" onClick={onClickLogin}>
+                  <Menu.Item key="login" onClick={onClickSign("Login")}>
                     {" "}
                     Login{" "}
                   </Menu.Item>,
-                  <Menu.Item key="signup" onClick={onClickSignup}>
+                  <Menu.Item key="signup" onClick={onClickSign("Signup")}>
                     {" "}
                     Signup{" "}
                   </Menu.Item>
@@ -100,7 +96,7 @@ const AppLayout = ({ children }) => {
       </Header>
       <StyledModal
         title={modalType}
-        visible={modalVisible}
+        visible={!!modalType}
         onCancel={onCancelModal}
         footer={null}
       >
