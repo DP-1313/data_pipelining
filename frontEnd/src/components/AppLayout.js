@@ -26,6 +26,27 @@ const StyledLayout = styled(Layout)`
   }
 `;
 
+const StyledModal = styled(Modal)`
+  top: 10rem;
+
+  .ant-modal-content {
+    opacity: 0.84;
+    .ant-modal-header,
+    .ant-modal-body,
+    .ant-modal-footer {
+      background-color: #2c3e50;
+    }
+
+    .ant-modal-title {
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      font-size: 2.4rem;
+      line-height: 3rem;
+    }
+  }
+`;
+
 const AppLayout = ({ children }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState("");
@@ -62,15 +83,15 @@ const AppLayout = ({ children }) => {
           </Col>
         </Row>
       </Header>
-      <Modal
+      <StyledModal
         title={modalType}
         visible={modalVisible}
         onCancel={onCancelModal}
-        footer={[<Button>제출하기</Button>]}
+        footer={null}
       >
         {modalType === "Login" && <LoginForm />}
         {modalType === "Signup" && <SignupForm />}
-      </Modal>
+      </StyledModal>
       <Content>{children}</Content>
     </StyledLayout>
   );
